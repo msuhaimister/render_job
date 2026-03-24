@@ -4,7 +4,7 @@ services:
     runtime: docker
     region: frankfurt
     schedule: "*/5 * * * *"
-    startCommand:
+    dockerCommand:
       psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
       "SELECT public.run_wallet_pipeline_high_freq();"
     envVars:
@@ -16,7 +16,7 @@ services:
     runtime: docker
     region: frankfurt
     schedule: "*/15 * * * *"
-    startCommand:
+    dockerCommand:
       psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
       "SELECT public.run_wallet_pipeline_mid_freq();"
     envVars:
@@ -28,7 +28,7 @@ services:
     runtime: docker
     region: frankfurt
     schedule: "*/15 * * * *"
-    startCommand:
+    dockerCommand:
       psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
       "SELECT public.run_wallet_quality_snapshot();"
     envVars:
@@ -40,7 +40,7 @@ services:
     runtime: docker
     region: frankfurt
     schedule: "5 1 * * *"
-    startCommand:
+    dockerCommand:
       psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
       "SELECT public.run_wallet_pipeline_low_freq();"
     envVars:
@@ -52,7 +52,7 @@ services:
     runtime: docker
     region: frankfurt
     schedule: "* * * * *"
-    startCommand:
+    dockerCommand:
       psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
       "SELECT public.run_trade_ledger_incremental_cron();"
     envVars:
@@ -64,7 +64,7 @@ services:
     runtime: docker
     region: frankfurt
     schedule: "10 0 * * *"
-    startCommand:
+    dockerCommand:
       psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
       "SELECT public.run_partition_maintenance_7d();"
     envVars:
