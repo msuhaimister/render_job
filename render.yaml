@@ -1,66 +1,60 @@
 services:
   - type: cron
     name: wallet-pipeline-high-freq
-    runtime: docker
+    runtime: node
     region: frankfurt
     schedule: "*/5 * * * *"
-    dockerCommand: >-
-      /bin/sh -c 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_wallet_pipeline_high_freq();"'
+    buildCommand: npm install pg
+    startCommand: node resources/jobs/run-wallet-pipeline-high-freq.js
     envVars:
       - fromGroup: default
 
   - type: cron
     name: wallet-pipeline-mid-freq
-    runtime: docker
+    runtime: node
     region: frankfurt
     schedule: "*/15 * * * *"
-    dockerCommand: >-
-      /bin/sh -c 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_wallet_pipeline_mid_freq();"'
+    buildCommand: npm install pg
+    startCommand: node resources/jobs/run-wallet-pipeline-mid-freq.js
     envVars:
       - fromGroup: default
 
   - type: cron
     name: wallet-quality-snapshot
-    runtime: docker
+    runtime: node
     region: frankfurt
     schedule: "*/15 * * * *"
-    dockerCommand: >-
-      /bin/sh -c 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_wallet_quality_snapshot();"'
+    buildCommand: npm install pg
+    startCommand: node resources/jobs/run-wallet-quality-snapshot.js
     envVars:
       - fromGroup: default
 
   - type: cron
     name: wallet-pipeline-low-freq
-    runtime: docker
+    runtime: node
     region: frankfurt
     schedule: "5 1 * * *"
-    dockerCommand: >-
-      /bin/sh -c 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_wallet_pipeline_low_freq();"'
+    buildCommand: npm install pg
+    startCommand: node resources/jobs/run-wallet-pipeline-low-freq.js
     envVars:
       - fromGroup: default
 
   - type: cron
     name: trade-ledger-incremental
-    runtime: docker
+    runtime: node
     region: frankfurt
     schedule: "* * * * *"
-    dockerCommand: >-
-      /bin/sh -c 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_trade_ledger_incremental_cron();"'
+    buildCommand: npm install pg
+    startCommand: node resources/jobs/run-trade-ledger-incremental.js
     envVars:
       - fromGroup: default
 
   - type: cron
     name: partition-maintenance-7d
-    runtime: docker
+    runtime: node
     region: frankfurt
     schedule: "10 0 * * *"
-    dockerCommand: >-
-      /bin/sh -c 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_partition_maintenance_7d();"'
+    buildCommand: npm install pg
+    startCommand: node resources/jobs/run-partition-maintenance-7d.js
     envVars:
       - fromGroup: default
