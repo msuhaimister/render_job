@@ -4,9 +4,9 @@ services:
     runtime: docker
     region: frankfurt
     schedule: "*/5 * * * *"
-    dockerCommand:
-      psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_wallet_pipeline_high_freq();"
+    dockerCommand: >-
+      /bin/sh -c 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_wallet_pipeline_high_freq();"'
     envVars:
       - fromGroup: default
 
@@ -15,9 +15,9 @@ services:
     runtime: docker
     region: frankfurt
     schedule: "*/15 * * * *"
-    dockerCommand:
-      psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_wallet_pipeline_mid_freq();"
+    dockerCommand: >-
+      /bin/sh -c 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_wallet_pipeline_mid_freq();"'
     envVars:
       - fromGroup: default
 
@@ -26,9 +26,9 @@ services:
     runtime: docker
     region: frankfurt
     schedule: "*/15 * * * *"
-    dockerCommand:
-      psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_wallet_quality_snapshot();"
+    dockerCommand: >-
+      /bin/sh -c 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_wallet_quality_snapshot();"'
     envVars:
       - fromGroup: default
 
@@ -37,9 +37,9 @@ services:
     runtime: docker
     region: frankfurt
     schedule: "5 1 * * *"
-    dockerCommand:
-      psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_wallet_pipeline_low_freq();"
+    dockerCommand: >-
+      /bin/sh -c 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_wallet_pipeline_low_freq();"'
     envVars:
       - fromGroup: default
 
@@ -48,9 +48,9 @@ services:
     runtime: docker
     region: frankfurt
     schedule: "* * * * *"
-    dockerCommand:
-      psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_trade_ledger_incremental_cron();"
+    dockerCommand: >-
+      /bin/sh -c 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_trade_ledger_incremental_cron();"'
     envVars:
       - fromGroup: default
 
@@ -59,8 +59,8 @@ services:
     runtime: docker
     region: frankfurt
     schedule: "10 0 * * *"
-    dockerCommand:
-      psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_partition_maintenance_7d();"
+    dockerCommand: >-
+      /bin/sh -c 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_partition_maintenance_7d();"'
     envVars:
       - fromGroup: default
