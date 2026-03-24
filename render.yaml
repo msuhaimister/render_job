@@ -3,9 +3,9 @@ services:
     name: wallet-pipeline-high-freq
     runtime: docker
     schedule: "*/5 * * * *"
-    dockerCommand: >-
-      bash -lc "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -c
-      'SELECT public.run_wallet_pipeline_high_freq();'"
+    startCommand:
+      psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_wallet_pipeline_high_freq();"
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -14,9 +14,9 @@ services:
     name: wallet-pipeline-mid-freq
     runtime: docker
     schedule: "*/15 * * * *"
-    dockerCommand: >-
-      bash -lc "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -c
-      'SELECT public.run_wallet_pipeline_mid_freq();'"
+    startCommand:
+      psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_wallet_pipeline_mid_freq();"
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -25,9 +25,9 @@ services:
     name: wallet-quality-snapshot
     runtime: docker
     schedule: "*/15 * * * *"
-    dockerCommand: >-
-      bash -lc "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -c
-      'SELECT public.run_wallet_quality_snapshot();'"
+    startCommand:
+      psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_wallet_quality_snapshot();"
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -36,9 +36,9 @@ services:
     name: wallet-pipeline-low-freq
     runtime: docker
     schedule: "5 1 * * *"
-    dockerCommand: >-
-      bash -lc "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -c
-      'SELECT public.run_wallet_pipeline_low_freq();'"
+    startCommand:
+      psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_wallet_pipeline_low_freq();"
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -47,9 +47,9 @@ services:
     name: trade-ledger-incremental
     runtime: docker
     schedule: "* * * * *"
-    dockerCommand: >-
-      bash -lc "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -c
-      'SELECT public.run_trade_ledger_incremental_cron();'"
+    startCommand:
+      psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_trade_ledger_incremental_cron();"
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -58,9 +58,9 @@ services:
     name: partition-maintenance-7d
     runtime: docker
     schedule: "10 0 * * *"
-    dockerCommand: >-
-      bash -lc "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -c
-      'SELECT public.run_partition_maintenance_7d();'"
+    startCommand:
+      psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_partition_maintenance_7d();"
     envVars:
       - key: DATABASE_URL
         sync: false
