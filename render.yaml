@@ -1,71 +1,66 @@
-diff --git a//Users/andy/workspace/project/cracker3_app/render.yaml b//Users/andy/workspace/project/cracker3_app/render.yaml
-new file mode 100644
---- /dev/null
-+++ b//Users/andy/workspace/project/cracker3_app/render.yaml
-@@ -0,0 +1,66 @@
-+services:
-+  - type: cron
-+    name: wallet-pipeline-high-freq
-+    runtime: docker
-+    schedule: "*/5 * * * *"
-+    dockerCommand: >-
-+      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-+      "SELECT public.run_wallet_pipeline_high_freq();"'
-+    envVars:
-+      - key: DATABASE_URL
-+        sync: false
-+
-+  - type: cron
-+    name: wallet-pipeline-mid-freq
-+    runtime: docker
-+    schedule: "*/15 * * * *"
-+    dockerCommand: >-
-+      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-+      "SELECT public.run_wallet_pipeline_mid_freq();"'
-+    envVars:
-+      - key: DATABASE_URL
-+        sync: false
-+
-+  - type: cron
-+    name: wallet-quality-snapshot
-+    runtime: docker
-+    schedule: "*/15 * * * *"
-+    dockerCommand: >-
-+      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-+      "SELECT public.run_wallet_quality_snapshot();"'
-+    envVars:
-+      - key: DATABASE_URL
-+        sync: false
-+
-+  - type: cron
-+    name: wallet-pipeline-low-freq
-+    runtime: docker
-+    schedule: "5 1 * * *"
-+    dockerCommand: >-
-+      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-+      "SELECT public.run_wallet_pipeline_low_freq();"'
-+    envVars:
-+      - key: DATABASE_URL
-+        sync: false
-+
-+  - type: cron
-+    name: trade-ledger-incremental
-+    runtime: docker
-+    schedule: "* * * * *"
-+    dockerCommand: >-
-+      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-+      "SELECT public.run_trade_ledger_incremental_cron();"'
-+    envVars:
-+      - key: DATABASE_URL
-+        sync: false
-+
-+  - type: cron
-+    name: partition-maintenance-7d
-+    runtime: docker
-+    schedule: "10 0 * * *"
-+    dockerCommand: >-
-+      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-+      "SELECT public.run_partition_maintenance_7d();"'
-+    envVars:
-+      - key: DATABASE_URL
-+        sync: false
+services:
+  - type: cron
+    name: wallet-pipeline-high-freq
+    runtime: docker
+    schedule: "*/5 * * * *"
+    dockerCommand: >-
+      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_wallet_pipeline_high_freq();"'
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+
+  - type: cron
+    name: wallet-pipeline-mid-freq
+    runtime: docker
+    schedule: "*/15 * * * *"
+    dockerCommand: >-
+      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_wallet_pipeline_mid_freq();"'
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+
+  - type: cron
+    name: wallet-quality-snapshot
+    runtime: docker
+    schedule: "*/15 * * * *"
+    dockerCommand: >-
+      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_wallet_quality_snapshot();"'
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+
+  - type: cron
+    name: wallet-pipeline-low-freq
+    runtime: docker
+    schedule: "5 1 * * *"
+    dockerCommand: >-
+      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_wallet_pipeline_low_freq();"'
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+
+  - type: cron
+    name: trade-ledger-incremental
+    runtime: docker
+    schedule: "* * * * *"
+    dockerCommand: >-
+      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_trade_ledger_incremental_cron();"'
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+
+  - type: cron
+    name: partition-maintenance-7d
+    runtime: docker
+    schedule: "10 0 * * *"
+    dockerCommand: >-
+      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
+      "SELECT public.run_partition_maintenance_7d();"'
+    envVars:
+      - key: DATABASE_URL
+        sync: false
