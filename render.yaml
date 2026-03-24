@@ -4,8 +4,8 @@ services:
     runtime: docker
     schedule: "*/5 * * * *"
     dockerCommand: >-
-      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_wallet_pipeline_high_freq();"'
+      bash -lc "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -c
+      'SELECT public.run_wallet_pipeline_high_freq();'"
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -15,8 +15,8 @@ services:
     runtime: docker
     schedule: "*/15 * * * *"
     dockerCommand: >-
-      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_wallet_pipeline_mid_freq();"'
+      bash -lc "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -c
+      'SELECT public.run_wallet_pipeline_mid_freq();'"
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -26,8 +26,8 @@ services:
     runtime: docker
     schedule: "*/15 * * * *"
     dockerCommand: >-
-      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_wallet_quality_snapshot();"'
+      bash -lc "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -c
+      'SELECT public.run_wallet_quality_snapshot();'"
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -37,8 +37,8 @@ services:
     runtime: docker
     schedule: "5 1 * * *"
     dockerCommand: >-
-      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_wallet_pipeline_low_freq();"'
+      bash -lc "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -c
+      'SELECT public.run_wallet_pipeline_low_freq();'"
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -48,8 +48,8 @@ services:
     runtime: docker
     schedule: "* * * * *"
     dockerCommand: >-
-      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_trade_ledger_incremental_cron();"'
+      bash -lc "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -c
+      'SELECT public.run_trade_ledger_incremental_cron();'"
     envVars:
       - key: DATABASE_URL
         sync: false
@@ -59,8 +59,8 @@ services:
     runtime: docker
     schedule: "10 0 * * *"
     dockerCommand: >-
-      bash -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c
-      "SELECT public.run_partition_maintenance_7d();"'
+      bash -lc "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -c
+      'SELECT public.run_partition_maintenance_7d();'"
     envVars:
       - key: DATABASE_URL
         sync: false
