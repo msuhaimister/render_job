@@ -1,0 +1,36 @@
+services:
+  - type: cron
+    name: wallet-pipeline-high-freq
+    runtime: docker
+    schedule: "*/5 * * * *"
+    plan: starter
+    dockerCommand: >
+      sh -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1
+      -c "SELECT public.run_wallet_pipeline_high_freq();"'
+
+  - type: cron
+    name: wallet-pipeline-mid-freq
+    runtime: docker
+    schedule: "*/15 * * * *"
+    plan: starter
+    dockerCommand: >
+      sh -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1
+      -c "SELECT public.run_wallet_pipeline_mid_freq();"'
+
+  - type: cron
+    name: wallet-quality-snapshot
+    runtime: docker
+    schedule: "*/15 * * * *"
+    plan: starter
+    dockerCommand: >
+      sh -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1
+      -c "SELECT public.run_wallet_quality_snapshot();"'
+
+  - type: cron
+    name: wallet-pipeline-low-freq
+    runtime: docker
+    schedule: "5 1 * * *"
+    plan: starter
+    dockerCommand: >
+      sh -lc 'psql "$DATABASE_URL" -v ON_ERROR_STOP=1
+      -c "SELECT public.run_wallet_pipeline_low_freq();"'
