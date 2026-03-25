@@ -5,7 +5,7 @@ services:
     region: frankfurt
     schedule: "*/5 * * * *"
     buildCommand: npm install pg
-    startCommand: node resources/jobs/run-wallet-pipeline-high-freq.js
+    startCommand: node run-wallet-pipeline-high-freq.js
     envVars:
       - fromGroup: default
 
@@ -15,7 +15,7 @@ services:
     region: frankfurt
     schedule: "*/15 * * * *"
     buildCommand: npm install pg
-    startCommand: node resources/jobs/run-wallet-pipeline-mid-freq.js
+    startCommand: node run-wallet-pipeline-mid-freq.js
     envVars:
       - fromGroup: default
 
@@ -25,7 +25,7 @@ services:
     region: frankfurt
     schedule: "*/15 * * * *"
     buildCommand: npm install pg
-    startCommand: node resources/jobs/run-wallet-quality-snapshot.js
+    startCommand: node run-wallet-quality-snapshot.js
     envVars:
       - fromGroup: default
 
@@ -35,7 +35,7 @@ services:
     region: frankfurt
     schedule: "5 1 * * *"
     buildCommand: npm install pg
-    startCommand: node resources/jobs/run-wallet-pipeline-low-freq.js
+    startCommand: node run-wallet-pipeline-low-freq.js
     envVars:
       - fromGroup: default
 
@@ -45,7 +45,7 @@ services:
     region: frankfurt
     schedule: "* * * * *"
     buildCommand: npm install pg
-    startCommand: node resources/jobs/run-trade-ledger-incremental.js
+    startCommand: node run-trade-ledger-incremental.js
     envVars:
       - fromGroup: default
 
@@ -55,6 +55,6 @@ services:
     region: frankfurt
     schedule: "10 0 * * *"
     buildCommand: npm install pg
-    startCommand: node resources/jobs/run-partition-maintenance-7d.js
+    startCommand: node run-partition-maintenance-7d.js
     envVars:
       - fromGroup: default
