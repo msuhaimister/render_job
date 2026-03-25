@@ -1,6 +1,8 @@
 const { runSql } = require("./db-runner");
 
-runSql("SELECT public.run_partition_maintenance_7d();")
+runSql("SELECT public.run_partition_maintenance_7d();", {
+  jobName: "run-partition-maintenance-7d",
+})
   .then(() => {
     console.log("run_partition_maintenance_7d done");
   })

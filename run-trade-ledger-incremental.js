@@ -1,6 +1,8 @@
 const { runSql } = require("./db-runner");
 
-runSql("SELECT public.run_trade_ledger_incremental_cron();")
+runSql("SELECT public.run_trade_ledger_incremental_cron();", {
+  jobName: "run-trade-ledger-incremental",
+})
   .then(() => {
     console.log("run_trade_ledger_incremental_cron done");
   })

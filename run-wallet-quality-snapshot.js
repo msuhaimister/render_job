@@ -1,6 +1,8 @@
 const { runSql } = require("./db-runner");
 
-runSql("SELECT public.run_wallet_quality_snapshot();")
+runSql("SELECT public.run_wallet_quality_snapshot();", {
+  jobName: "run-wallet-quality-snapshot",
+})
   .then(() => {
     console.log("run_wallet_quality_snapshot done");
   })

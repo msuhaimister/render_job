@@ -1,6 +1,8 @@
 const { runSql } = require("./db-runner");
 
-runSql("SELECT public.run_wallet_pipeline_mid_freq();")
+runSql("SELECT public.run_wallet_pipeline_mid_freq();", {
+  jobName: "run-wallet-pipeline-mid-freq",
+})
   .then(() => {
     console.log("run_wallet_pipeline_mid_freq done");
   })
