@@ -58,3 +58,23 @@ services:
     startCommand: node run-partition-maintenance-7d.js
     envVars:
       - fromGroup: default
+
+  - type: cron
+    name: bt-snapshot-capture
+    runtime: node
+    region: frankfurt
+    schedule: "*/15 * * * *"
+    buildCommand: npm install pg
+    startCommand: node run-bt-snapshot-capture.js
+    envVars:
+      - fromGroup: default
+
+  - type: cron
+    name: bt-hourly-maintenance
+    runtime: node
+    region: frankfurt
+    schedule: "5 * * * *"
+    buildCommand: npm install pg
+    startCommand: node run-bt-hourly-maintenance.js
+    envVars:
+      - fromGroup: default
